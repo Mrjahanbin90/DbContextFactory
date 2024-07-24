@@ -1,0 +1,6 @@
+@DbContextFactory_HostAddress = http://localhost:5063
+
+GET {{DbContextFactory_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
