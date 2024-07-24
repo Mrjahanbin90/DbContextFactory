@@ -10,6 +10,7 @@ namespace DbContextFactory.Inter.Companies
 
         public CompanyRepository(ApplicationDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<Company> GetByIdAsync(int id)

@@ -10,6 +10,7 @@ namespace DbContextFactory.Inter.Products
 
         public ProductRepository(ApplicationDbContext context) : base(context)
         {
+            _context = context;
         }
 
         public async Task<Product> GetByIdAsync(int id)
