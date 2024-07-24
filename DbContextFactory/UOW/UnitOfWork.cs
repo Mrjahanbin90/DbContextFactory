@@ -9,9 +9,9 @@ namespace DbContextFactory.UOW
     {
         private readonly IDbContextFactory<ApplicationDbContext> _dbContextFactory;
         private readonly ApplicationDbContext _context;
-        private IProductRepository _productRepository;
-        private ICompanyRepository _companyRepository;
-        private IProductCompanyRepository _productCompanyRepository;
+        private ProductRepository _productRepository;
+        private CompanyRepository _companyRepository;
+      
 
         public UnitOfWork(IDbContextFactory<ApplicationDbContext> dbContextFactory)
         {
@@ -19,27 +19,12 @@ namespace DbContextFactory.UOW
             _context = _dbContextFactory.CreateDbContext();
         }
 
-        public IProductRepository Products
-        {
-            get
-            {
-                return _productRepository ??= new ProductRepository(_context);
-            }
-        }
-        public ICompanyRepository Company
-        {
-            get
-            {
-                return _companyRepository ??= new CompanyRepository(_context);
-            }
-        }
-        public IProductCompanyRepository ProductCompany
-        {
-            get
-            {
-                return _productCompanyRepository ??= new ProductCompanyRepository(_context);
-            }
-        }
+        public IProductRepository Products => _productRepository ??= new(_context);
+        public ICompanyRepository Company => _companyRepository ??= new(_context);
+
+
+        private ProductCompanyRepository _productCompanyRepository;
+        public IProductCompanyRepository ProductCompany => _productCompanyRepository ??= new(_context);
 
         public async Task<int> SaveChangesAsync()
         {
